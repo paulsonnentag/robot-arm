@@ -2,8 +2,15 @@
 
 var React = require('react');
 
+var Timeline = require('./timeline.js');
+
+var actions = [
+  {t: 0, duration: 1},
+  {t: 2, duration: 2},
+  {t: 7, duration: 3}
+];
 
 React.renderComponent(
-  <h1>Fuck it! I'm going fishing instead.</h1>,
+  <Timeline actions={actions}></Timeline>,
   document.body
 );
