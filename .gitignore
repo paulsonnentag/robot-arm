@@ -1,4 +1,4 @@
 npm-debug.log
-node_modules
-src/bundle.js
-src/.bundle.js
+node_modules/*
+!node_modules/gulp-handle-errors
+build
