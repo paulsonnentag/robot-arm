@@ -5,6 +5,8 @@
 var _ = require('lodash');
 var React = require('react');
 
+var Transform = require('./transform.js');
+
 var Action = React.createClass({
 
   getInitialState: function () {
@@ -43,7 +45,7 @@ var Action = React.createClass({
   render: function () {
     var actionWidth = this.props.duration * Action.SIZE;
 
-    return <g transform={'translate('+ (this.props.t * Action.SIZE) + ', 0)'}
+    return <g transform={new Transform().translate(this.props.t * Action.SIZE, 0)}
               onMouseMove={this.handleMouseMove}
               onMouseUp={this.stopTransform}
               onMouseLeave={this.stopTransform}
@@ -51,7 +53,7 @@ var Action = React.createClass({
 
              <rect width={actionWidth - (2 * Action.HANDLE_SIZE)} height={Action.SIZE - (2 * Action.HANDLE_SIZE)}
                    rx="5" ry="5"
-                   transform={'translate('+ Action.HANDLE_SIZE +', ' + Action.HANDLE_SIZE + ')'}
+                   transform={new Transform().translate(Action.HANDLE_SIZE, Action.HANDLE_SIZE)}
                    className="action"
                    onMouseDown={this.startMove}/></g>
   }
