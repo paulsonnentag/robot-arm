@@ -10,7 +10,6 @@ var Action = React.createClass({
   getInitialState: function () {
     return {
       move: false,
-      resize: 0,
       refPoint: null
     };
   },
@@ -22,23 +21,18 @@ var Action = React.createClass({
     });
   },
 
-  startResize: function (direction, evt) {
-    this.setState({
-      resize: direction === 'left' ? -1 : 1,
-      refPoint: {x: evt.clientX, y: evt.clientY}
-    });
-  },
-
   stopTransform: function () {
     this.setState(this.getInitialState());
   },
 
   handleMouseMove: function (evt) {
-    if (this.state.move) {
-      this.props.onMove(this, this.state.refPoint.x - evt.clientX);
+    var deltaX;
 
-    } else if (this.state.resize !== 0) {
-      this.props.onResize(this, this.state.resize, this.state.refPoint.x - evt.clientX);
+    if (this.state.move) {
+      deltaX = (evt.clientX - this.state.refPoint.x) / Action.SIZE;
+      this.props.onMove(this.props, deltaX);
+
+      this.setState({refPoint: {x: evt.clientX, y: evt.clientY}});
     }
   },
 
@@ -49,30 +43,22 @@ var Action = React.createClass({
   render: function () {
     var actionWidth = this.props.duration * Action.SIZE;
 
-    return <g transform={'translate( '+ this.props.t * Action.SIZE + ', 0)'}
+    return <g transform={'translate('+ (this.props.t * Action.SIZE) + ', 0)'}
               onMouseMove={this.handleMouseMove}
               onMouseUp={this.stopTransform}
               onMouseLeave={this.stopTransform}
               onClick={this.stopPropagation}>
 
-             <rect width={actionWidth} height={Action.SIZE}
+             <rect width={actionWidth - (2 * Action.HANDLE_SIZE)} height={Action.SIZE - (2 * Action.HANDLE_SIZE)}
                    rx="5" ry="5"
+                   transform={'translate('+ Action.HANDLE_SIZE +', ' + Action.HANDLE_SIZE + ')'}
                    className="action"
-                   onMouseDown={this.startMove}/>
-
-             <rect width={Action.HANDLE_SIZE} height={Action.SIZE}
-                   className="action-handle"
-                   onMouseDown={_.partial(this.startResize, 'left')}/>
-
-             <rect width={Action.HANDLE_SIZE} height={Action.SIZE}
-                   transform={'translate('+ (actionWidth - Action.HANDLE_SIZE) +', 0)'}
-                   className="action-handle"
-                   onMouseDown={_.partial(this.startResize, 'right')}/></g>
+                   onMouseDown={this.startMove}/></g>
   }
 });
 
 
 Action.SIZE = 75;
-Action.HANDLE_SIZE = 10;
+Action.HANDLE_SIZE = 4;
 
 module.exports = Action;

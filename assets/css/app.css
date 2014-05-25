@@ -1,8 +1,21 @@
-.action {
-    fill: #FF4136;
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
 
-.action-handle {
-    cursor: col-resize;
-    opacity: 0;
+body {
+    margin: 10px;
+    background: #2D2D2D;
+}
+
+.action {
+    cursor: pointer;
+    fill: #FF4136;
+    stroke-width: 3px;
+}
+
+.timeline {
+    background: #0f0f0f;
+    -webkit-box-shadow: inset -1px -1px 1px 1px #000;
+    border-radius: 5px;
 }
