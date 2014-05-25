@@ -1,0 +1,26 @@
+{
+  "name": "robot-arm",
+  "version": "0.0.0",
+  "author": "Paul Sonnentag <Paul.Sonnentag@googlemail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "browserify": "^3.33.0",
+    "reactify": "^0.13.1",
+    "watchify": "^0.10.1"
+  },
+  "dependencies": {
+    "envify": "^1.2.1",
+    "react": "^0.10.0",
+    "react-art": "^0.10.0"
+  },
+  "scripts": {
+    "build": "browserify src/app.js -o src/bundle.js",
+    "watch": "watchify src/app.js -o src/bundle.js --debug --verbose",
+    "server": "python -m SimpleHTTPServer 3000"
+  },
+  "browserify": {
+    "transform" : [
+      ["reactify", {"es6": false}]
+    ]
+  }
+}
