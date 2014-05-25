@@ -42,13 +42,18 @@ var Action = React.createClass({
     }
   },
 
+  stopPropagation: function (evt) {
+    evt.stopPropagation()
+  },
+
   render: function () {
     var actionWidth = this.props.duration * Action.SIZE;
 
     return <g transform={'translate( '+ this.props.t * Action.SIZE + ', 0)'}
               onMouseMove={this.handleMouseMove}
               onMouseUp={this.stopTransform}
-              onMouseLeave={this.stopTransform}>
+              onMouseLeave={this.stopTransform}
+              onClick={this.stopPropagation}>
 
              <rect width={actionWidth} height={Action.SIZE}
                    rx="5" ry="5"
@@ -65,6 +70,7 @@ var Action = React.createClass({
                    onMouseDown={_.partial(this.startResize, 'right')}/></g>
   }
 });
+
 
 Action.SIZE = 75;
 Action.HANDLE_SIZE = 10;
