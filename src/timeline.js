@@ -11,9 +11,10 @@ var Timeline = React.createClass({
   getInitialState: function () {
     return {
       actions: [
-        {t: 0, duration: 4},
-        {t: 5, duration: 1},
-        {t: 7, duration: 2},
+        {t: 0, duration: 1},
+        {t: 2, duration: 1},
+        {t: 4, duration: 1},
+        {t: 8, duration: 1}
       ]
     };
   },
@@ -21,6 +22,8 @@ var Timeline = React.createClass({
   addAction: function (action) {
     var actions = _(this.state.actions.concat(action))
       .sortBy('t')
+      .reduce(resolveOverlapWithAdjacentAction, [])
+      .reverse()
       .reduce(resolveOverlapWithAdjacentAction, []);
 
     this.setState({actions: actions});
@@ -37,6 +40,8 @@ var Timeline = React.createClass({
     var actions = _(this.state.actions)
       .map(_.partial(moveAction, action, deltaX))
       .sortBy(_.partial(timeOrder, deltaX))
+      .reduce(resolveOverlapWithAdjacentAction, [])
+      .reverse()
       .reduce(resolveOverlapWithAdjacentAction, []);
 
     this.setState({actions: actions});
@@ -70,7 +75,7 @@ function resolveOverlapWithAdjacentAction (actions, action, index) {
 
   if (overlap !== 0) {
     return actions.concat({
-      t: action.t + overlap,
+      t: Math.max(0, action.t + overlap),
       duration: action.duration
     });
   }
@@ -84,7 +89,7 @@ function getOverlap (action1, action2) {
   var edgeL2 = action2.t;
   var edgeR2 = action2.t + action2.duration;
 
-  if (edgeL2 < edgeR1 && edgeR2 > edgeR1) { // overlap from left
+  if (edgeL2 < edgeR1 && edgeR2 >= edgeR1) { // overlap from left
     return edgeR1 - edgeL2;
   }
 
@@ -98,7 +103,7 @@ function getOverlap (action1, action2) {
 function moveAction (newAction, deltaX, action) {
   if (action.t === newAction.t) {
     return {
-      t: action.t + deltaX,
+      t: Math.max(0, action.t + deltaX),
       duration: action.duration
     }
   }
