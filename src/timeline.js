@@ -10,14 +10,18 @@ var Timeline = React.createClass({
 
   getInitialState: function () {
     return {
-      actions: []
+      actions: [
+        {t: 0, duration: 4},
+        {t: 5, duration: 1},
+        {t: 7, duration: 2},
+      ]
     };
   },
 
   addAction: function (action) {
     var actions = _(this.state.actions.concat(action))
       .sortBy('t')
-      .reduce(resolveOverlapWithPrevAction, []);
+      .reduce(resolveOverlapWithAdjacentAction, []);
 
     this.setState({actions: actions});
   },
@@ -30,14 +34,12 @@ var Timeline = React.createClass({
   },
 
   handleActionMove: function (action, deltaX) {
-    var actions = _(this.state.actions);
+    var actions = _(this.state.actions)
+      .map(_.partial(moveAction, action, deltaX))
+      .sortBy(_.partial(timeOrder, deltaX))
+      .reduce(resolveOverlapWithAdjacentAction, []);
 
-    _.remove(actions, {t: action.t});
-
-    this.addAction(actions, {
-      t: action.t + deltaX,
-      duration: action.duration
-    });
+    this.setState({actions: actions});
   },
 
   render: function () {
@@ -50,19 +52,24 @@ var Timeline = React.createClass({
     });
 
     return <svg width="100%" height={Action.SIZE}
-                className="timeline"
-                onClick={this.handleClick}>{actions}</svg>
+                className="timeline">{actions}</svg>
   }
 });
 
 
-function resolveOverlapWithPrevAction (actions, action, index) {
-  var prevAction = actions[index - 1];
+function resolveOverlapWithAdjacentAction (actions, action, index) {
+  var overlap;
+  var adjacentAction = actions[index - 1];
 
-  if (prevAction && getOverlap(prevAction, action) > 0) {
+  if (!adjacentAction) {
+    return actions.concat(action);
+  }
 
+  overlap = getOverlap(adjacentAction, action);
+
+  if (overlap !== 0) {
     return actions.concat({
-      t: action.t + getOverlap(prevAction, action),
+      t: action.t + overlap,
       duration: action.duration
     });
   }
@@ -70,11 +77,36 @@ function resolveOverlapWithPrevAction (actions, action, index) {
   return actions.concat(action);
 }
 
-function getOverlap (prevAction, action) {
-  return (prevAction.t + prevAction.duration) - action.t;
+function getOverlap (action1, action2) {
+  var edgeL1 = action1.t;
+  var edgeR1 = action1.t + action1.duration;
+  var edgeL2 = action2.t;
+  var edgeR2 = action2.t + action2.duration;
+
+  if (edgeL2 < edgeR1 && edgeR2 > edgeR1) { // overlap from left
+    return edgeR1 - edgeL2;
+  }
+
+  if (edgeR2 > edgeL1 && edgeL2 < edgeL1) { // overlap from right
+    return edgeL1 - edgeR2;
+  }
+
+  return 0;
 }
 
+function moveAction (newAction, deltaX, action) {
+  if (action.t === newAction.t) {
+    return {
+      t: action.t + deltaX,
+      duration: action.duration
+    }
+  }
 
-Timeline.SIZE = 50;
+  return action;
+}
+
+function timeOrder (order, action) {
+  return order * action.t;
+}
 
 module.exports = Timeline;
