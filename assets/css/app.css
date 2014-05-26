@@ -10,8 +10,22 @@ body {
 
 .action {
     cursor: pointer;
+}
+
+.action.light {
+    fill: #FFDC00;
+}
+
+.action.grip {
+    fill: #2ECC40;
+}
+
+.action.transform {
+    fill: #0074D9;
+}
+
+.action.rotate {
     fill: #FF4136;
-    stroke-width: 3px;
 }
 
 .timeline {

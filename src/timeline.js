@@ -4,7 +4,7 @@
 
 var _ = require('lodash');
 var React = require('react');
-var Action = require('./action.js');
+var Action = require('./actions/action.js');
 
 var Timeline = React.createClass({
 
@@ -46,16 +46,17 @@ var Timeline = React.createClass({
     var self = this;
 
     var actions =  _.map(this.state.actions, function (action) {
-      return <Action t={action.t}
-                     duration={action.duration}
-                     onMove={self.handleActionMove}/>
+      return self.props.Action({
+        t: action.t,
+        duration: action.duration,
+        onMove: self.handleActionMove
+      });
     });
 
     return <svg width="100%" height={Action.SIZE}
                 className="timeline">{actions}</svg>
   }
 });
-
 
 function resolveOverlapWithAdjacentAction (actions, action, index) {
   var overlap;

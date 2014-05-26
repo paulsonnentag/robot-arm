@@ -2,7 +2,11 @@
 
 var React = require('react');
 
-var Timeline = require('./timeline.js');
+var TimelineGroup = require('./timeline-group.js');
+var GripAction = require('./actions/grip-action.js');
+var LightAction = require('./actions/light-action.js');
+var RotateAction = require('./actions/rotate-action.js');
+var TransformAction = require('./actions/transform-action.js');
 
 var actions = [
   {t: 0, duration: 1},
@@ -11,6 +15,6 @@ var actions = [
 ];
 
 React.renderComponent(
-  <Timeline actions={actions}></Timeline>,
+  <TimelineGroup timelines={[GripAction, LightAction, RotateAction, TransformAction]}/>,
   document.body
 );

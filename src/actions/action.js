@@ -5,7 +5,7 @@
 var _ = require('lodash');
 var React = require('react');
 
-var Transform = require('./transform.js');
+var Transform = require('./../transform.js');
 
 var Action = React.createClass({
 
@@ -54,11 +54,12 @@ var Action = React.createClass({
              <rect width={actionWidth - (2 * Action.HANDLE_SIZE)} height={Action.SIZE - (2 * Action.HANDLE_SIZE)}
                    rx="5" ry="5"
                    transform={new Transform().translate(Action.HANDLE_SIZE, Action.HANDLE_SIZE)}
-                   className="action"
-                   onMouseDown={this.startMove}/></g>
+                   className={'action ' + this.props.type}
+                   onMouseDown={this.startMove}/>
+
+             {this.props.children}</g>
   }
 });
-
 
 Action.SIZE = 75;
 Action.HANDLE_SIZE = 4;
