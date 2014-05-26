@@ -5,6 +5,7 @@
 var _ = require('lodash');
 var React = require('react');
 var Action = require('./actions/action.js');
+var Transform = require('./transform.js');
 
 var Timeline = React.createClass({
 
@@ -12,9 +13,9 @@ var Timeline = React.createClass({
     return {
       actions: [
         {t: 0, duration: 1},
-        {t: 2, duration: 1},
-        {t: 4, duration: 1},
-        {t: 8, duration: 1}
+        {t: 2, duration: 2},
+        {t: 4, duration: 3},
+        {t: 8, duration: 4}
       ]
     };
   },
@@ -58,8 +59,13 @@ var Timeline = React.createClass({
       });
     });
 
-    return <svg width="100%" height={Action.SIZE}
-                className="timeline">{actions}</svg>
+    return <g transform={new Transform().translate(0, (Action.SIZE + Action.HANDLE_SIZE) * this.props.index + Action.HANDLE_SIZE)}>
+
+             <rect className="timeline"
+                   width="100%" height={Action.SIZE}
+                   rx="5" ry="5"/>
+
+             {actions}</g>
   }
 });
 

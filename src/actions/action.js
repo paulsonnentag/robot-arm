@@ -45,17 +45,21 @@ var Action = React.createClass({
   render: function () {
     var actionWidth = this.props.duration * Action.SIZE;
 
-    return <g transform={new Transform().translate(this.props.t * Action.SIZE, 0)}
+    return <g transform={new Transform().translate(this.props.t * Action.SIZE + Action.HANDLE_SIZE, Action.HANDLE_SIZE)}
+              className={'action ' + this.props.type}
               onMouseMove={this.handleMouseMove}
+              onMouseDown={this.startMove}
               onMouseUp={this.stopTransform}
               onMouseLeave={this.stopTransform}
               onClick={this.stopPropagation}>
 
-             <rect width={actionWidth - (2 * Action.HANDLE_SIZE)} height={Action.SIZE - (2 * Action.HANDLE_SIZE)}
-                   rx="5" ry="5"
-                   transform={new Transform().translate(Action.HANDLE_SIZE, Action.HANDLE_SIZE)}
-                   className={'action ' + this.props.type}
-                   onMouseDown={this.startMove}/>
+             <rect width={actionWidth - Action.HANDLE_SIZE} height={Action.SIZE - (2 * Action.HANDLE_SIZE)}
+                   className="tail"
+                   rx="5" ry="5"/>
+
+             <rect width={Action.SIZE - Action.HANDLE_SIZE} height={Action.SIZE - (2 * Action.HANDLE_SIZE)}
+                   className="box"
+                   rx="5" ry="5"/>
 
              {this.props.children}</g>
   }

@@ -12,24 +12,35 @@ body {
     cursor: pointer;
 }
 
-.action.light {
+.tail {
+    opacity: 0.90;
+}
+
+.action.light .box,
+.action.light .tail {
     fill: #FFDC00;
 }
 
-.action.grip {
+.action.grip .box,
+.action.grip .tail {
     fill: #2ECC40;
 }
 
-.action.transform {
+.action.transform .box,
+.action.transform .tail {
     fill: #0074D9;
 }
 
-.action.rotate {
+.action.rotate .box,
+.action.rotate .tail {
     fill: #FF4136;
 }
 
 .timeline {
-    background: #0f0f0f;
-    -webkit-box-shadow: inset -1px -1px 1px 1px #000;
-    border-radius: 5px;
+    fill: #0f0f0f;
+}
+
+#front {
+    z-index: 100;
+    fill: blue;
 }
