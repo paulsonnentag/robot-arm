@@ -67,6 +67,8 @@ function sendCommand (state) {
   });
 }
 
+sendCommand({});
+
 module.exports = {
   sendCommand: sendCommand
 };
