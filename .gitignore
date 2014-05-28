@@ -1,4 +1,3 @@
 npm-debug.log
-node_modules/*
-!node_modules/gulp-handle-errors
-build
+node_modules
+client/build
