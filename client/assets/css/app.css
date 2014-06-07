@@ -1,0 +1,80 @@
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+}
+
+.timelines {
+    overflow: auto;
+    margin: 5px;
+    background: #000;
+    border-radius: 5px;
+}
+
+.timeline {
+    border-radius: 5px;
+    margin: 3px;
+    margin-top: 0;
+    padding: 3px;
+    display: inline-flex;
+    background: #222;
+    height: 65px;
+    flex-direction: column;
+}
+
+
+.timeline:first-child {
+    margin-top: 3px;
+}
+
+ul.actions {
+    list-style-type: none;
+    height: 100%;
+
+    margin: 0;
+    flex-grow: 1;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.action {
+    border-radius: 5px;
+    flex-shrink: 0;
+    height: 100%;
+    white-space: nowrap;
+}
+
+.inner-action {
+    border-radius: 5px;
+    width: 65px;
+    height: 100%;
+}
+
+.light .action,
+.light .inner-action {
+    background: rgba(255, 220, 0, 0.5);
+}
+
+.grip .action,
+.grip .inner-action {
+    background: rgba(46, 204, 64, 0.5);
+}
+
+.transform .action,
+.transform .inner-action {
+    background: rgba(0, 116, 217, 0.5);
+}
+
+.rotate .action,
+.rotate .inner-action {
+    background: rgba(255, 65, 54, 0.5);
+}
