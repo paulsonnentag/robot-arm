@@ -5,26 +5,27 @@
     box-sizing: border-box;
 }
 
-body, html {
-    margin: 0;
+.timelines-group {
+    overflow-x: scroll;
+    width: 100%;
 }
 
 .timelines {
     overflow: auto;
-    margin: 5px;
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 100%;
     background: #000;
-    border-radius: 5px;
 }
 
 .timeline {
-    border-radius: 5px;
-    margin: 3px;
-    margin-top: 0;
-    padding: 3px;
     display: inline-flex;
-    background: #222;
+    flex-shrink: 0;
     height: 65px;
-    flex-direction: column;
+    margin: 0 3px 3px 3px;
+    padding: 3px;
+    background: #222;
+    border-radius: 5px;
 }
 
 
@@ -33,30 +34,28 @@ body, html {
 }
 
 ul.actions {
-    list-style-type: none;
-    height: 100%;
-
-    margin: 0;
-    flex-grow: 1;
-    padding: 0;
-
     display: flex;
+    flex-grow: 1;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 .action {
-    border-radius: 5px;
     flex-shrink: 0;
     height: 100%;
     white-space: nowrap;
+    border-radius: 5px;
 }
 
 .inner-action {
-    border-radius: 5px;
     width: 65px;
     height: 100%;
+    border-radius: 5px;
 }
 
 .light .action,
