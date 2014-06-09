@@ -43,18 +43,30 @@
                   (om/build-all timeline-view timelines))))
 
 
-(defn insert-action-at [t action actions]
-  (let [insertion-index (->> actions
+(defn insert-action-at [t actions]
+  (let [timepoints (->> actions
                              (map #(+ (:duration %) (:delay %)))
                              (reductions +)
-                             (take-while #(> t %))
-                             (count))
-        [head tail] (split-at insertion-index actions)]
-    (vec (concat head [action] tail))))
+                             (take-while #(> t %)))
+        insertion-index (count timepoints)
+        prev-time (last timepoints)
+        delay (- t prev-time)
+        action {:delay delay
+                :duration 1}
+        [head [next-action & tail]] (split-at insertion-index actions)]
+    (if next-action
+      (let [next-delay (- (:delay next-action) (inc delay))
+            next-action (assoc next-action :delay (max next-delay 0))]
+        (vec (concat head [action next-action] tail)))
+      (vec (concat head [action])))))
+
+(assoc nil :foo 1)
+
+(concat [2] nil [3])
 
 (defn add-action [e timeline]
   (let [t (-> e .-clientX size->t)]
-    (om/transact! timeline :actions #(insert-action-at t {:duration 1 :delay 2} %))))
+    (om/transact! timeline :actions #(insert-action-at t %))))
 
 (defn timeline-view [timeline owner]
   (reify
@@ -83,7 +95,7 @@
 (def SCALE 65)
 
 (defn size->t [x]
-   (/ SCALE x))
+   (/ x SCALE))
 
 (defn t->size [x]
   (* SCALE x))
