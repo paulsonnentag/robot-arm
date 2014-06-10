@@ -5,6 +5,22 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: sans-serif;
+}
+
+.button {
+    cursor: pointer;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+
+.button:focus {
+    outline: none;
+}
+
 .action {
     width: 100px;
     height: 100px;
@@ -13,19 +29,81 @@
     border-radius: 10px;
 }
 
-
-.action.light {
+.light {
     background: rgb(255, 220, 0);
 }
 
-.action.grip {
+.grip {
     background: rgb(46, 204, 64);
 }
 
-.action.transform {
+.transform {
     background: rgb(0, 116, 217);
 }
 
-.action.rotate {
+.rotate {
     background: rgb(255, 65, 54);
+}
+
+.add-action {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.plus {
+    text-align: center;
+    font-size: 45px;
+    height: 45px;
+    width: 45px;
+    line-height: 45px;
+    margin: -25px 0 0 -25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    cursor: pointer;
+}
+
+.option {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0 -20px;
+    border-radius: 10px;
+    transition: all 0.2s ease-out;
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
+    opacity: 0;
+}
+
+.actions {
+    display: inline-block;
+}
+
+.show-options .option {
+    -webkit-transform: scale(1);
+    opacity: 1;
+}
+
+.show-options .option.rotate {
+    top: 20%;
+    left: 20%;
+}
+
+.show-options .option.transform {
+    top: 20%;
+    left: 80%;
+}
+
+.show-options .option.grip {
+    top: 80%;
+    left: 20%;
+}
+
+.show-options .option.light {
+    top: 80%;
+    left: 80%;
 }
