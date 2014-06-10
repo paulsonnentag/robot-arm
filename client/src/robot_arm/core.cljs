@@ -6,14 +6,7 @@
 
 (enable-console-print!)
 
-(def app-state (atom {:actions [{:type :rotate
-                                 :data {:rotation 20}}
-                                {:type :transform
-                                 :data {:shoulder 20 :elbow: 20 :wrist 20}}
-                                {:type :light
-                                 :data {:light true}}
-                                {:type :grip
-                                 :data {:grip false}}]}))
+(def app-state (atom {:actions []}))
 
 (declare actions-view)
 (declare action-view)
@@ -25,11 +18,15 @@
             (dom/div nil
                      (om/build actions-view (:actions app))))))
 
+(defn add-action [type actions owner]
+  (om/set-state! owner :show-options false)
+  (om/transact! actions #(conj % {:type type :data {}})))
+
 (defn toggle-options [owner]
   (let [show-options (om/get-state owner :show-options)]
     (om/set-state! owner :show-options (not show-options))))
 
-(defn add-action [actions owner]
+(defn add-action-button [actions owner]
   (reify
     om/IInitState
     (init-state [_]
@@ -37,10 +34,14 @@
     om/IRenderState
     (render-state [_ {:keys [show-options]}]
             (dom/div #js {:className (str "add-action" (if show-options " show-options" ""))}
-                     (dom/button #js {:className "button option transform"})
-                     (dom/button #js {:className "button option rotate"})
-                     (dom/button #js {:className "button option light"})
-                     (dom/button #js {:className "button option grip"})
+                     (dom/button #js {:className "button option transform"
+                                      :onClick #(add-action :transform actions owner)})
+                     (dom/button #js {:className "button option rotate"
+                                      :onClick #(add-action :rotate actions owner)})
+                     (dom/button #js {:className "button option light"
+                                      :onClick #(add-action :light actions owner)})
+                     (dom/button #js {:className "button option grip"
+                                      :onClick #(add-action :grip actions owner)})
                      (dom/button #js {:className "button plus"
                                       :onClick #(toggle-options owner)} "+")))))
 
@@ -52,7 +53,7 @@
                      (dom/h1 nil "Actions")
                      (apply dom/div #js {:className "actions"}
                             (om/build-all action-view actions))
-                     (om/build add-action actions)))))
+                     (om/build add-action-button actions)))))
 
 (defn action-view [action owner]
   (reify
