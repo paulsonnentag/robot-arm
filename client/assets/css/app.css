@@ -5,75 +5,27 @@
     box-sizing: border-box;
 }
 
-.timelines-group {
-    overflow-x: scroll;
-    width: 100%;
-}
-
-.timelines {
-    overflow: auto;
-    display: inline-flex;
-    flex-direction: column;
-    min-width: 100%;
-    background: #000;
-}
-
-.timeline {
-    display: inline-flex;
-    flex-shrink: 0;
-    height: 65px;
-    margin: 0 3px 3px 3px;
-    padding: 3px;
-    background: #222;
-    border-radius: 5px;
-}
-
-
-.timeline:first-child {
-    margin-top: 3px;
-}
-
-ul.actions {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
 .action {
-    flex-shrink: 0;
-    height: 100%;
-    white-space: nowrap;
-    border-radius: 5px;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 10px;
 }
 
-.inner-action {
-    width: 65px;
-    height: 100%;
-    border-radius: 5px;
+
+.action.light {
+    background: rgb(255, 220, 0);
 }
 
-.light .action,
-.light .inner-action {
-    background: rgba(255, 220, 0, 0.5);
+.action.grip {
+    background: rgb(46, 204, 64);
 }
 
-.grip .action,
-.grip .inner-action {
-    background: rgba(46, 204, 64, 0.5);
+.action.transform {
+    background: rgb(0, 116, 217);
 }
 
-.transform .action,
-.transform .inner-action {
-    background: rgba(0, 116, 217, 0.5);
-}
-
-.rotate .action,
-.rotate .inner-action {
-    background: rgba(255, 65, 54, 0.5);
+.action.rotate {
+    background: rgb(255, 65, 54);
 }
