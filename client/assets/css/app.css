@@ -21,11 +21,15 @@ body {
     outline: none;
 }
 
+.actions {
+    display: inline-block;
+}
+
 .action {
     width: 100px;
     height: 100px;
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 10px;
     border-radius: 10px;
 }
 
@@ -79,8 +83,16 @@ body {
     opacity: 0;
 }
 
-.actions {
-    display: inline-block;
+.option.light {
+    background-image: url('../img/light-small.png');
+}
+
+.option.grip {
+    background-image: url('../img/grip-small.png');
+}
+
+.option.rotate {
+    background-image: url('../img/rotate-small.png');
 }
 
 .show-options .option {
@@ -106,4 +118,25 @@ body {
 .show-options .option.light {
     top: 80%;
     left: 80%;
+}
+
+.modifier {
+    width: 100%;
+    height: 100%;
+}
+
+.modifier.light.enabled {
+    background: url("../img/light-on.png");
+}
+
+.modifier.light.disabled {
+    background: url("../img/light-off.png");
+}
+
+.modifier.grip.enabled {
+    background: url("../img/grip-closed.png");
+}
+
+.modifier.grip.disabled {
+    background: url("../img/grip-open.png");
 }
