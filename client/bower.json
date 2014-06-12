@@ -1,0 +1,14 @@
+{
+  "name": "robot-arm",
+  "version": "0.0.0",
+  "homepage": "https://github.com/BrackCurly/robot-arm",
+  "authors": [
+    "Paul Sonnentag <Paul.Sonnentag@googlemail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "ng-sortable": "https://github.com/a5hik/ng-sortable.git",
+    "angular": "~1.2.17"
+  }
+}

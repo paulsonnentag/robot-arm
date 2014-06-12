@@ -1,0 +1,10 @@
+<div class="action"
+     ng-class="[type]">
+
+  <div ng-switch="type">
+    <toggle-modifier ng-switch-when="light" data="data"></toggle-modifier>
+    <toggle-modifier ng-switch-when="grip" data="data"></toggle-modifier>
+    <rotate-modifier ng-switch-when="rotate" data="data"></rotate-modifier>
+    <transform-modifier ng-switch-when="transform" data="data"></transform-modifier>
+  </div>
+</div>

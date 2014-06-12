@@ -1,0 +1,16 @@
+<div class="add-action"
+     ng-class="{'show-options' : showOptions}"
+     ng-click="toggleOptions()"
+     ng-mouseleave="hideOptions()">
+
+  <button class="button option transform"
+          ng-click="addAction('transform')"></button>
+  <button class="button option rotate"
+          ng-click="addAction('rotate')"></button>
+  <button class="button option light"
+          ng-click="addAction('light')"></button>
+  <button class="button option grip"
+          ng-click="addAction('grip')"></button>
+
+  <button class="button plus">+</button>
+</div>
