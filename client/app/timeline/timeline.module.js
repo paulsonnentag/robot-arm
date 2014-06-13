@@ -1,9 +1,6 @@
-(function () {
-  'use strict';
+'use strict';
 
-  angular.module('robotArm.timeline', [
-    'robotArm.timeline.directive',
-    'robotArm.timeline.addAction'
-  ])
-
-}());
+module.exports = angular.module('robotArm.timeline', [
+  require('./timeline.directive').name,
+  require('./add-action.directive').name
+]);

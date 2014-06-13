@@ -1,6 +1,3 @@
-(function () {
-  'use strict';
+'use strict';
 
-  angular.module('robotArm.modifiers.transformModifier', []);
-
-}());
+module.exports = angular.module('robotArm.modifiers.transformModifier', []);

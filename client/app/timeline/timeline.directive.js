@@ -1,26 +1,23 @@
-(function () {
-  'use strict';
+'use strict';
 
-  angular.module('robotArm.timeline.directive', [])
+module.exports = angular.module('robotArm.timeline.directive', [])
 
-    .directive('timeline', function () {
+  .directive('timeline', function () {
 
-      return {
-        restrict: 'EA',
-        templateUrl: 'app/timeline/timeline.html',
-        scope: {
-          actions: '='
-        },
-        controller: function ($scope) {
+    return {
+      restrict: 'EA',
+      templateUrl: 'app/timeline/timeline.html',
+      scope: {
+        actions: '='
+      },
+      controller: function ($scope) {
 
-          $scope.$on('addAction', function (e, type) {
-            $scope.actions.push({
-              type: type,
-              data: {}
-            })
-          });
-        }
-      };
-    });
-
-}());
+        $scope.$on('addAction', function (e, type) {
+          $scope.actions.push({
+            type: type,
+            data: {}
+          })
+        });
+      }
+    };
+  });

@@ -4,6 +4,7 @@ var browserify = require('browserify');
 var gulp = require('gulp');
 var livereload = require('gulp-livereload');
 var source = require('vinyl-source-stream');
+var notify = require('gulp-notify');
 
 function handleErrors() {
   var args = Array.prototype.slice.call(arguments);
@@ -20,11 +21,11 @@ function handleErrors() {
 
 gulp.task('browserify', function () {
   return browserify()
-    .add('./client/src/app.js')
+    .add('./app/app.js')
     .bundle({debug: true})
     .on('error', handleErrors)
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest('./client/build/'));
+    .pipe(gulp.dest('./build'));
 });
 
 gulp.task('watch', function () {
@@ -34,6 +35,6 @@ gulp.task('watch', function () {
     server.changed(file.path);
   };
 
-  gulp.watch(['client/src/**'], ['browserify']);
-  gulp.watch(['client/build/**', 'client/assets/**']).on('change', reload);
+  gulp.watch(['app/**'], ['browserify']);
+  gulp.watch(['build/**', 'assets/**']).on('change', reload);
 });

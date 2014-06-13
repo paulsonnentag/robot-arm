@@ -1,2 +1,0 @@
-Problem: when rendering a list of components outputs a random list of numbers
-Solution: use apply on container element

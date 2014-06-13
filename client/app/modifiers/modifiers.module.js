@@ -1,10 +1,7 @@
-(function () {
-  'use strict';
+'use strict';
 
-  angular.module('robotArm.modifiers', [
-    'robotArm.modifiers.toggleModifier',
-    'robotArm.modifiers.transformModifier',
-    'robotArm.modifiers.rotateModifier'
-  ])
-
-}());
+module.exports = angular.module('robotArm.modifiers', [
+  require('./toggle-modifier.directive').name,
+  require('./transform-modifier.directive').name,
+  require('./rotate-modifier.directive').name,
+]);
