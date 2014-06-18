@@ -26,7 +26,7 @@ function actionQueue(url) {
     });
   });
 
-  return queue;
+  return queue.pipe(es.pause());
 }
 
 module.exports = actionQueue;

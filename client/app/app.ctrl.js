@@ -11,7 +11,6 @@ module.exports = angular.module('robotArm.app', [])
       console.log($scope.actions);
 
       actionsFirebase.$add($scope.actions);
-      $scope.actions = [];
     };
 
   });

@@ -2,6 +2,8 @@ var _ = require('lodash');
 var usb = require('usb');
 var es = require('event-stream');
 
+var noop = function () {};
+
 var COMMAND_BITS = [
   {
     shoulder: {
@@ -36,17 +38,35 @@ var COMMAND_BITS = [
 ];
 
 
-var commandStream = es.pause().pipe(es.through(function (action) {
+var state = {
+  grip: false,
+  light: false
+};
+
+
+var commandStream = es.through(function (action) {
+  var self = this;
+
+
+  console.log(action.type, action.data);
 
   if (action.type === 'light') {
 
+    state.light = action.data.enabled;
+
+  } else if (action.type === 'grip') {
+
     this.pause();
 
-    sendCommand({
-      light: action.data.enabled ? 'on' : 'off'
-    }, this.resume)
+    state.grip = action.data.enabled;
+
+    runCommand({
+      grip: action.data.enabled ? 'close' : 'open',
+      light: state.light ? 'on' : 'off'
+    }, 1550, self.resume);
   }
-}));
+
+});
 
 
 function getRobotArm () {
@@ -71,6 +91,9 @@ function addComponentBit(COMMAND_BITS, command, mode, component) {
   return command | COMMAND_BITS[component][mode];
 }
 
+
+
+
 function sendCommand (state, callback) {
   var robotArm = getRobotArm();
   var command = getCommand(state);
@@ -83,8 +106,19 @@ function sendCommand (state, callback) {
   });
 }
 
+
+function runCommand (state, t, callback) {
+  sendCommand(state, function () {
+    setTimeout(function () {
+      sendCommand({}, callback)
+    }, t)
+  });
+}
+
 module.exports = {
   commandStream: commandStream,
+
+  runCommand: runCommand,
 
   sendCommand: sendCommand
 };
