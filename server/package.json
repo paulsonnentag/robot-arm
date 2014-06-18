@@ -4,14 +4,9 @@
   "author": "Paul Sonnentag <Paul.Sonnentag@googlemail.com>",
   "license": "MIT",
   "dependencies": {
-    "envify": "^1.2.1",
-    "express": "^4.3.1",
-    "http": "0.0.0",
+    "event-stream": "^3.1.5",
+    "firebase": "^1.0.17",
     "lodash": "^2.4.1",
-    "morgan": "^1.1.1",
-    "react": "^0.10.0",
-    "react-art": "^0.10.0",
-    "socket.io": "^0.9.17",
     "usb": "^0.3.11"
-  },
+  }
 }
