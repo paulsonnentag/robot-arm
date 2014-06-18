@@ -2,7 +2,7 @@
 
 module.exports = angular.module('robotArm.modifiers.rotateModifier', [])
 
-  .constant('maxRotation', 120)
+  .constant('maxRotation', 135)
 
   .directive('rotateModifier', function () {
     return {

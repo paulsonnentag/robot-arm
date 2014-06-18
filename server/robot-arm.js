@@ -37,12 +37,11 @@ var COMMAND_BITS = [
   }
 ];
 
-
 var state = {
   grip: false,
-  light: false
+  light: false,
+  rotation: 0
 };
-
 
 var commandStream = es.through(function (action) {
   var self = this;
@@ -64,6 +63,20 @@ var commandStream = es.through(function (action) {
       grip: action.data.enabled ? 'close' : 'open',
       light: state.light ? 'on' : 'off'
     }, 1550, self.resume);
+
+  } else if (action.type === 'rotate') {
+    var diff = (action.data.rotation - state.rotation);
+
+    state.rotation += diff;
+
+    var t = Math.abs(diff) * 60;
+
+    this.pause();
+
+    runCommand({
+      base: diff < 0 ? 'left' : 'right',
+      light: state.light ? 'on' : 'off'
+    }, t, self.resume);
   }
 
 });
