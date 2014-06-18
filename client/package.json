@@ -10,7 +10,8 @@
   "author": "Paul Sonnentag <Paul.Sonnentag@googlemail.com>",
   "license": "MIT",
   "napa": {
-    "angular": "angular/bower-angular"
+    "angular": "angular/bower-angular",
+    "angularFire": "firebase/angularFire"
   },
   "devDependencies": {
     "browserify": "^3.33.0",
