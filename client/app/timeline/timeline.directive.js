@@ -15,7 +15,7 @@ module.exports = angular.module('robotArm.timeline.directive', [])
       controller: function ($scope) {
 
         function getInitialData (type, actions) {
-          var prev = _.find(actions, {type: type});
+          var prev = _.findLast(actions, {type: type});
 
           switch (type) {
             case 'light':
