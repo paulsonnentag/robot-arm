@@ -103,6 +103,10 @@ body {
     background-image: url('../img/rotate-small.png');
 }
 
+.option.transform {
+    background-image: url('../img/transform-small.png');
+}
+
 .show-options .option {
     -webkit-transform: scale(1);
     opacity: 1;
@@ -150,7 +154,8 @@ body {
     background: url("../img/grip-open.png");
 }
 
-.modifier.rotate {
+.modifier.rotate,
+.modifier.transform {
     position: relative;
     text-align: center;
 }
@@ -163,19 +168,9 @@ body {
     height: 60px;
 }
 
-.rotation-image.left {
-    background-image: url('../img/rotate-left.png');
-}
-
-.rotation-image.right {
-    background-image: url('../img/rotate-right.png');
-}
-
-
-
-.rotation-input {
+.modifier-input {
     position: absolute;
-    top: 60px;
+    top: 65px;
     left: 25px;
     width: 60px;
     font-weight: bold;
@@ -184,4 +179,13 @@ body {
     background: none;
     border: 0;
     text-align: center;
+}
+
+.modifier.transform .joint {
+    fill: #fff;
+}
+
+.modifier.transform .joint:hover,
+.modifier.transform .joint.active{
+    fill: red;
 }

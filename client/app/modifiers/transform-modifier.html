@@ -1,0 +1,36 @@
+<div class="modifier transform"
+     ng-mouseleave="selectedJoint = null">
+
+  <svg width="100" height="100">
+
+    <g transform="translate(50, 55) rotate({{data.shoulder}})">
+
+      <g transform="translate(-2, -20)">
+
+        <rect width="4" height="20"
+              class="joint"
+              ng-class="{'active' : selectedJoint === 'shoulder'}"
+              ng-click="selectedJoint = 'shoulder'"></rect>
+
+        <g transform="translate(2, -2) rotate({{data.elbow}})">
+          <rect width="20" height="4"
+                class="joint"
+                ng-class="{'active' : selectedJoint === 'elbow'}"
+                ng-click="selectedJoint = 'elbow'"></rect>
+
+
+          <rect transform="translate(20, 0) rotate({{data.wrist}})"
+                width="5" height="4"
+                class="joint"
+                ng-class="{'active' : selectedJoint === 'wrist'}"
+                ng-click="selectedJoint = 'wrist'"></rect>
+        </g>
+      </g>
+    </g>
+  </svg>
+
+  <input class="modifier-input" type="number"
+         ng-show="selectedJoint"
+         ng-model="data[selectedJoint]">
+
+</div>

@@ -22,7 +22,7 @@ module.exports = angular.module('robotArm.timeline.directive', [])
             case 'grip':
               return prev ? {enabled: !prev.data.enabled} : {enabled: true};
             case 'transform':
-              return prev ? prev.data : {
+              return prev ? _.clone(prev.data) : {
                 shoulder: 0,
                 elbow: 0,
                 wrist: 0
